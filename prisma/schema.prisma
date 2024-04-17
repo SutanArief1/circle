@@ -18,7 +18,7 @@ model User {
   username String @unique
   fullname String
   email String  @unique
-  password String?
+  password String
   follower Follow[] @relation("follower")
   following  Follow[] @relation("following")
   profile Profile?
@@ -39,9 +39,9 @@ model Profile {
   id Int @id @default(autoincrement())
   userid Int @unique
   user User @relation(fields: [userid], references: [id])
-  avatar String
-  cover String
-  bio String
+  avatar String?
+  cover String?
+  bio String?
 }
 
 model Thread {

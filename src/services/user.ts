@@ -49,13 +49,13 @@ export const register = async (payload: IRegister) => {
       },
    });
 
-//    const profile = await db.profile.create({
-//       data: {
-//          userid: user.id,
-//       },
-//    });
+   const profile = await db.profile.create({
+      data: {
+         userid: user.id,
+      },
+   });
 
-   return { user };
+   return { user, profile };
 }
 
 export const login = async (username: string, password: string): Promise<String> => {
