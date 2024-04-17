@@ -13,3 +13,17 @@ export type AuthMiddlewareData = {
     SUCCESS = "SUCCESS",
     FAILED = "FAILED",
  }
+
+ export interface IProfile {
+    bio?: string;
+    avatar?: string;
+    cover?: string;
+    userId?: number;
+ }
+
+ export interface IThread {
+   id?: number;
+   content?: string;
+   userId: number;
+   threadId?: number;
+}
