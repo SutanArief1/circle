@@ -14,7 +14,8 @@ export const getThreads = async () => {
             },
             _count: {
                 select: {
-                    replies: true
+                    replies: true,
+                    like: true
                 }
             },
         }

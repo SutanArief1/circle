@@ -11,13 +11,11 @@ export const getLikes = async (threadId: number) => {
                username: true,
                fullname: true,
                id: true,
-            },
-            include: {
                profile: {
                   select: {
-                     avatar: true,
-                  },
-               },
+                     avatar: true
+                  }
+               }
             },
          },
       },
