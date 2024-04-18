@@ -32,7 +32,12 @@ export const getThread = async (id: number) => {
                 select: {
                     image: true
                 }
-            }
+            },
+            _count: {
+                select: {
+                    replies: true
+                }
+            },
         }
     })
 }
@@ -89,3 +94,24 @@ export const createThread = async (
  
     return true;
  };
+
+ export const getReplies = async (threadId: number) => {
+    return await db.thread.findMany({
+       where: {
+          threadId,
+       },
+       include: {
+          image: {
+             select: {
+                image: true,
+             },
+          },
+          _count: {
+             select: {
+                replies: true,
+             },
+          },
+       },
+    });
+ };
+ 
