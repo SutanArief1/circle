@@ -63,6 +63,28 @@ export const createThread = async (req: Request, res: Response) => {
    }
 };
 
+export const deleteThread = async (req: Request, res: Response) => {
+   try {
+      const userId = res.locals.user
+      const threadId = Number(req.params.id)
+
+      const deleteThread = await threadServices.deleteThread(threadId, userId)
+      
+      res.json({
+         status: true,
+         message: "success",
+         data: deleteThread,
+      });
+   } catch (error) {
+      const err = error as unknown as Error;
+      console.log(err);
+      res.status(500).json({
+         status: false,
+         message: err.message,
+      });
+   }
+}
+
 export const getReplies = async (req: Request, res: Response) => {
    try {
       const { id } = req.params;

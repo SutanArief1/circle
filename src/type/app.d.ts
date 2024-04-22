@@ -26,4 +26,6 @@ export type AuthMiddlewareData = {
    content?: string;
    userId: number;
    threadId?: number;
+   createdAt: Date;
+   updatedAt: Date
 }

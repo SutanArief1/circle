@@ -51,6 +51,8 @@ model Thread {
   author   User          @relation(fields: [userId], references: [id])
   like     Like[]        @relation("thread")
   threadId Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   parent   Thread?       @relation("threadReplies", fields: [threadId], references: [id])
   replies  Thread[]      @relation("threadReplies")
   image    ThreadImage[]

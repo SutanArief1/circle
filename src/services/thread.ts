@@ -1,3 +1,4 @@
+import { log } from "console"
 import db from "../db/"
 import { IThread } from "../type/app"
 
@@ -6,11 +7,26 @@ export const getThreads = async () => {
         where: {
             threadId: null
         },
+        orderBy: {
+         createdAt: 'desc'
+        },
         include: {
             image: {
                 select: {
                     image: true
                 }
+            },
+            author: {
+               select: {
+                  id: true,
+                  username: true,
+                  fullname: true,
+                  profile: {
+                     select: {
+                        avatar: true
+                     }
+                  }
+               }
             },
             _count: {
                 select: {
@@ -34,9 +50,19 @@ export const getThread = async (id: number) => {
                     image: true
                 }
             },
+            author: {
+               include: {
+                  profile: {
+                     select: {
+                        avatar: true
+                     }
+                  }
+               }
+            },
             _count: {
                 select: {
-                    replies: true
+                    replies: true,
+                    like: true
                 }
             },
         }
@@ -81,19 +107,19 @@ export const createThread = async (
        throw new Error("You don't have permission to delete this thread");
     }
  
-    await db.thread.delete({
-       where: {
-          id: idThread,
-       },
-    });
- 
-    await db.threadImage.deleteMany({
+   await db.threadImage.deleteMany({
        where: {
           threadId: idThread,
        },
     });
- 
-    return true;
+
+   await db.thread.delete({
+       where: {
+          id: idThread,
+       },
+    });
+
+    return true
  };
 
  export const getReplies = async (threadId: number) => {
@@ -101,11 +127,23 @@ export const createThread = async (
        where: {
           threadId,
        },
+       orderBy: {
+         createdAt: "desc"
+       },
        include: {
           image: {
              select: {
                 image: true,
              },
+          },
+          author: {
+            include: {
+               profile: {
+                  select: {
+                     avatar: true
+                  }
+               }
+            }
           },
           _count: {
              select: {

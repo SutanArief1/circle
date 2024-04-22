@@ -58,7 +58,7 @@ export const register = async (payload: IRegister) => {
    return { user, profile };
 }
 
-export const login = async (username: string, password: string): Promise<String> => {
+export const login = async (username: string, password: string): Promise<String> => {    
     const user = await db.user.findFirst({
         where: {
             OR: [
@@ -71,6 +71,7 @@ export const login = async (username: string, password: string): Promise<String>
             ]
         }
     })
+    
 
     if(!user) {
         throw new Error ("User or password is not valid")
